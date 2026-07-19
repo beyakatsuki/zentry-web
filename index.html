@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A cinematic scroll-driven 3D paintball experience." />
+  <title>Battlefield 509 — Paintball Experience</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <canvas id="webgl" aria-hidden="true"></canvas>
+
+  <header class="nav">
+    <a class="brand" href="#top" aria-label="Battlefield 509 home">
+      <span class="brand-mark">B509</span>
+      <span class="brand-copy">Battlefield<br>Paintball</span>
+    </a>
+    <nav aria-label="Primary navigation">
+      <a href="#experience">Experience</a>
+      <a href="#gear">Gear</a>
+      <a href="#packages">Packages</a>
+    </nav>
+    <a class="nav-cta" href="#book">Book a battle</a>
+  </header>
+
+  <main id="top">
+    <section class="panel hero" data-scene="hero">
+      <div class="eyebrow">Cap-Haïtien • Haiti</div>
+      <h1>
+        <span>Enter the</span>
+        <strong>battlefield.</strong>
+      </h1>
+      <p>Fast action, bold color, unforgettable group battles. Your next story starts behind the mask.</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="#book">Book your battle</a>
+        <a class="button button-ghost" href="#experience">Explore the arena</a>
+      </div>
+      <div class="scroll-hint"><span></span>Scroll to enter</div>
+    </section>
+
+    <section id="experience" class="panel split" data-scene="arena">
+      <div class="section-copy">
+        <div class="index">01</div>
+        <p class="kicker">The experience</p>
+        <h2>Every turn changes the game.</h2>
+        <p>Move through bunkers, tires, containers, and tactical cover while the arena transforms around your team.</p>
+      </div>
+      <div class="stat-card">
+        <span>Built for</span>
+        <strong>Friends. Birthdays. Teams.</strong>
+      </div>
+    </section>
+
+    <section id="gear" class="panel split reverse" data-scene="gear">
+      <div class="section-copy">
+        <div class="index">02</div>
+        <p class="kicker">Rental gear</p>
+        <h2>Everything you need. Ready to play.</h2>
+        <p>Marker, protective mask, air tank, hopper, and starter paintballs are prepared before your session begins.</p>
+      </div>
+      <div class="gear-list" aria-label="Included gear">
+        <span>Marker</span><span>Mask</span><span>Air tank</span><span>Hopper</span><span>Paintballs</span>
+      </div>
+    </section>
+
+    <section id="packages" class="panel packages" data-scene="packages">
+      <div class="packages-heading">
+        <div>
+          <div class="index">03</div>
+          <p class="kicker">Choose your battle</p>
+          <h2>Built for every squad.</h2>
+        </div>
+        <p>Launch pricing is presented as a preview while we finalize the field and operating costs.</p>
+      </div>
+
+      <div class="package-grid">
+        <article>
+          <span>Starter battle</span>
+          <h3>First Strike</h3>
+          <p>Ideal for new players who want a fast introduction to the arena.</p>
+          <a href="#book">View package</a>
+        </article>
+        <article class="featured">
+          <span>Most popular</span>
+          <h3>Squad Battle</h3>
+          <p>A longer session for groups, birthdays, and competitive friends.</p>
+          <a href="#book">View package</a>
+        </article>
+        <article>
+          <span>Private event</span>
+          <h3>Full Arena</h3>
+          <p>Reserve the experience for your group, team, or celebration.</p>
+          <a href="#book">View package</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="book" class="panel final" data-scene="final">
+      <p class="kicker">Your move</p>
+      <h2>Ready for battle?</h2>
+      <p>Join the early-access list and be first to know when reservations open in Cap-Haïtien.</p>
+      <form class="waitlist" onsubmit="event.preventDefault(); this.classList.add('submitted');">
+        <label>
+          <span class="sr-only">Phone or email</span>
+          <input required type="text" placeholder="Phone number or email" />
+        </label>
+        <button type="submit">Join early access</button>
+        <small>You're on the list. We'll contact you before launch.</small>
+      </form>
+      <footer>Battlefield 509 — Paintball experience concept</footer>
+    </section>
+  </main>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
