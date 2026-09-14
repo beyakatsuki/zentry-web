@@ -1,183 +1,44 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.166.1/build/three.module.js';
 import { gsap } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js';
 import { ScrollTrigger } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollTrigger.js';
-
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 gsap.registerPlugin(ScrollTrigger);
-
-const canvas = document.querySelector('#webgl');
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.7));
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.outputColorSpace = THREE.SRGBColorSpace;
-renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.1;
-
-const scene = new THREE.Scene();
-scene.fog = new THREE.FogExp2(0x120304, 0.055);
-const camera = new THREE.PerspectiveCamera(42, window.innerWidth / window.innerHeight, 0.1, 100);
-camera.position.set(0, 0.35, 9);
-
-scene.add(new THREE.HemisphereLight(0xcfe6ff, 0x160f0a, 1.35));
-const keyLight = new THREE.DirectionalLight(0xffd400, 5);
-keyLight.position.set(4, 5, 6);
-scene.add(keyLight);
-const rimLight = new THREE.PointLight(0xff321f, 40, 15);
-rimLight.position.set(-4, 1, 4);
-scene.add(rimLight);
-
-const root = new THREE.Group();
-scene.add(root);
-
-const darkMaterial = new THREE.MeshStandardMaterial({ color: 0x21100e, roughness: 0.4, metalness: 0.75 });
-const gripMaterial = new THREE.MeshStandardMaterial({ color: 0x2a1714, roughness: 0.78, metalness: 0.2 });
-const acidMaterial = new THREE.MeshStandardMaterial({ color: 0xffd400, roughness: 0.2, metalness: 0.4, emissive: 0x3a1600, emissiveIntensity: 0.9 });
-const glassMaterial = new THREE.MeshPhysicalMaterial({ color: 0xff9a74, roughness: 0.1, metalness: 0.15, transmission: 0.35, transparent: true, opacity: 0.7 });
-
-// Lightweight stylized paintball marker, assembled from procedural geometry.
-const marker = new THREE.Group();
-root.add(marker);
-
-const body = new THREE.Mesh(new THREE.BoxGeometry(3.2, 0.72, 0.72), darkMaterial);
-body.position.x = 0.15;
-marker.add(body);
-
-const barrel = new THREE.Mesh(new THREE.CylinderGeometry(0.19, 0.25, 3.2, 28), darkMaterial);
-barrel.rotation.z = Math.PI / 2;
-barrel.position.x = 2.9;
-marker.add(barrel);
-
-const barrelTip = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.28, 0.55, 28), acidMaterial);
-barrelTip.rotation.z = Math.PI / 2;
-barrelTip.position.x = 4.72;
-marker.add(barrelTip);
-
-const grip = new THREE.Mesh(new THREE.BoxGeometry(0.62, 1.75, 0.62), gripMaterial);
-grip.position.set(-0.65, -1.05, 0);
-grip.rotation.z = -0.18;
-marker.add(grip);
-
-const triggerGuard = new THREE.Mesh(new THREE.TorusGeometry(0.42, 0.08, 12, 30, Math.PI * 1.4), acidMaterial);
-triggerGuard.rotation.set(Math.PI / 2, 0, 0.22);
-triggerGuard.position.set(0.05, -0.72, 0);
-marker.add(triggerGuard);
-
-const hopper = new THREE.Mesh(new THREE.SphereGeometry(0.82, 32, 22), glassMaterial);
-hopper.scale.set(1, 0.78, 1);
-hopper.position.set(0.5, 1.08, 0);
-marker.add(hopper);
-
-const hopperNeck = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.22, 0.5, 20), darkMaterial);
-hopperNeck.position.set(0.5, 0.55, 0);
-marker.add(hopperNeck);
-
-const tank = new THREE.Mesh(new THREE.CylinderGeometry(0.48, 0.58, 2.5, 30), darkMaterial);
-tank.rotation.z = Math.PI / 2;
-tank.position.set(-2.35, -0.35, 0);
-marker.add(tank);
-
-const tankCap = new THREE.Mesh(new THREE.CylinderGeometry(0.25, 0.3, 0.4, 20), acidMaterial);
-tankCap.rotation.z = Math.PI / 2;
-tankCap.position.set(-0.95, -0.35, 0);
-marker.add(tankCap);
-
-marker.rotation.set(-0.12, -0.55, 0.03);
-marker.position.set(2.1, 0.4, 0);
-marker.scale.setScalar(0.78);
-
-const floor = new THREE.Mesh(
-  new THREE.CircleGeometry(14, 64),
-  new THREE.MeshStandardMaterial({ color: 0x140506, roughness: 1, metalness: 0, transparent: true, opacity: 0.75 })
-);
-floor.rotation.x = -Math.PI / 2;
-floor.position.y = -3.1;
-scene.add(floor);
-
-const paintGroup = new THREE.Group();
-scene.add(paintGroup);
-const paintColors = [0xffd400, 0xff321f, 0xff7a00, 0xfff1b8];
-for (let i = 0; i < 70; i += 1) {
-  const material = new THREE.MeshStandardMaterial({
-    color: paintColors[i % paintColors.length],
-    emissive: paintColors[i % paintColors.length],
-    emissiveIntensity: 0.22,
-    roughness: 0.45
-  });
-  const ball = new THREE.Mesh(new THREE.SphereGeometry(0.045 + Math.random() * 0.06, 12, 12), material);
-  ball.position.set((Math.random() - 0.5) * 13, (Math.random() - 0.5) * 8, (Math.random() - 0.5) * 8);
-  ball.userData.base = ball.position.clone();
-  ball.userData.speed = 0.4 + Math.random() * 1.2;
-  paintGroup.add(ball);
+const reduced=matchMedia('(prefers-reduced-motion:reduce)').matches;
+const renderer=new THREE.WebGLRenderer({canvas:document.querySelector('#webgl'),alpha:true,antialias:true,powerPreference:'high-performance'});
+renderer.setPixelRatio(Math.min(devicePixelRatio,1.6));renderer.setSize(innerWidth,innerHeight);renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.25;
+const scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(38,innerWidth/innerHeight,.1,100);camera.position.set(0,.2,9);
+scene.add(new THREE.HemisphereLight(0xffe2b5,0x300000,2.4));
+const key=new THREE.PointLight(0xffd51f,65,18);key.position.set(4,4,5);scene.add(key);
+const rim=new THREE.PointLight(0xff210f,85,20);rim.position.set(-4,0,3);scene.add(rim);
+const marker=new THREE.Group();scene.add(marker);
+const metal=new THREE.MeshStandardMaterial({color:0x1b0b08,metalness:.82,roughness:.25});
+const red=new THREE.MeshStandardMaterial({color:0xef210f,metalness:.45,roughness:.28,emissive:0x310300});
+const gold=new THREE.MeshStandardMaterial({color:0xffd51f,metalness:.5,roughness:.22,emissive:0x351700});
+const glass=new THREE.MeshPhysicalMaterial({color:0xff7b43,transmission:.25,transparent:true,opacity:.82,roughness:.08});
+function mesh(g,m,p,r=[0,0,0]){const x=new THREE.Mesh(g,m);x.position.set(...p);x.rotation.set(...r);marker.add(x);return x}
+mesh(new THREE.BoxGeometry(3.35,.78,.78),metal,[0,.15,0]);
+mesh(new THREE.CylinderGeometry(.19,.26,3.7,32),metal,[3.25,.15,0],[0,0,Math.PI/2]);
+mesh(new THREE.CylinderGeometry(.3,.3,.65,32),gold,[5.37,.15,0],[0,0,Math.PI/2]);
+mesh(new THREE.BoxGeometry(.7,1.9,.7),red,[-.7,-1.12,0],[0,0,-.18]);
+mesh(new THREE.TorusGeometry(.46,.09,14,34,Math.PI*1.42),gold,[.05,-.72,.02],[Math.PI/2,0,.2]);
+const hopper=mesh(new THREE.SphereGeometry(.95,36,28),glass,[.55,1.35,0]);hopper.scale.set(1,.76,1);
+mesh(new THREE.CylinderGeometry(.2,.25,.58,24),metal,[.55,.68,0]);
+mesh(new THREE.CylinderGeometry(.55,.67,2.75,34),metal,[-2.55,-.3,0],[0,0,Math.PI/2]);
+mesh(new THREE.CylinderGeometry(.29,.33,.48,24),gold,[-1.02,-.3,0],[0,0,Math.PI/2]);
+marker.rotation.set(-.08,-.42,.02);marker.scale.setScalar(.82);marker.position.set(1.75,.2,0);
+const balls=new THREE.Group();scene.add(balls);const colors=[0xffd51f,0xef210f,0xff7417,0xfff2c0];
+for(let i=0;i<85;i++){const m=new THREE.MeshStandardMaterial({color:colors[i%4],emissive:colors[i%4],emissiveIntensity:.18,roughness:.42});const b=new THREE.Mesh(new THREE.SphereGeometry(.04+Math.random()*.065,10,10),m);b.position.set((Math.random()-.5)*14,(Math.random()-.5)*9,(Math.random()-.5)*7);b.userData.y=b.position.y;b.userData.s=.45+Math.random()*1.2;balls.add(b)}
+if(!reduced){
+ const tl=gsap.timeline({scrollTrigger:{trigger:'main',start:'top top',end:'bottom bottom',scrub:1.05}});
+ tl.to(marker.rotation,{y:.48,x:.08,duration:1},0).to(marker.position,{x:1.35,y:-.05,z:-.6,duration:1},0)
+ .to(marker.rotation,{y:-.85,z:-.05,duration:1},1).to(marker.position,{x:-1.8,y:.1,z:-1,duration:1},1)
+ .to(marker.rotation,{y:.22,x:.18,duration:1},2).to(marker.position,{x:1.8,y:.25,z:-1.7,duration:1},2)
+ .to(marker.rotation,{y:Math.PI*1.15,x:.05,duration:1.3},3).to(marker.position,{x:0,y:.15,z:-2.1,duration:1.3},3).to(marker.scale,{x:1.02,y:1.02,z:1.02,duration:1.3},3)
+ .to(marker.rotation,{y:Math.PI*1.7,z:.12,duration:1},4).to(marker.position,{x:1.2,y:.1,z:-1,duration:1},4);
+ gsap.utils.toArray('.giant.back').forEach(el=>gsap.to(el,{x:'-18vw',scrollTrigger:{trigger:el.parentElement,start:'top bottom',end:'bottom top',scrub:1}}));
+ gsap.utils.toArray('.giant.front').forEach(el=>gsap.fromTo(el,{x:'20vw'},{x:'-12vw',scrollTrigger:{trigger:el.parentElement,start:'top bottom',end:'bottom top',scrub:1}}));
+ gsap.utils.toArray('.copy,.package-head,.cards,.final-copy').forEach(el=>gsap.from(el,{opacity:0,y:80,duration:1,scrollTrigger:{trigger:el,start:'top 82%',once:true}}));
 }
-
-const bunkers = new THREE.Group();
-scene.add(bunkers);
-for (let i = 0; i < 8; i += 1) {
-  const geometry = i % 2 ? new THREE.CylinderGeometry(0.5, 0.7, 2.1, 14) : new THREE.BoxGeometry(1.25, 1.9, 1.25);
-  const mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial({ color: i % 2 ? 0x2b100d : 0x4a0b08, roughness: 0.9 }));
-  mesh.position.set((i - 3.5) * 2.2, -2.05, -7 - (i % 3) * 2.4);
-  mesh.rotation.y = i * 0.7;
-  bunkers.add(mesh);
-}
-
-const timeline = gsap.timeline({
-  defaults: { ease: 'none' },
-  scrollTrigger: {
-    trigger: 'main',
-    start: 'top top',
-    end: 'bottom bottom',
-    scrub: prefersReducedMotion ? false : 1.1
-  }
-});
-
-if (!prefersReducedMotion) {
-  timeline
-    .to(marker.rotation, { y: 0.5, x: 0.12, z: -0.08, duration: 1.1 }, 0)
-    .to(marker.position, { x: 1.4, y: -0.15, z: -1.3, duration: 1.1 }, 0)
-    .to(camera.position, { z: 7.1, y: 0.1, duration: 1.1 }, 0)
-    .to(marker.rotation, { y: -1.15, x: -0.05, duration: 1.1 }, 1.1)
-    .to(marker.position, { x: -2.2, y: 0.1, z: -1.8, duration: 1.1 }, 1.1)
-    .to(camera.position, { x: 0.8, z: 6.4, duration: 1.1 }, 1.1)
-    .to(marker.rotation, { y: 0.18, x: 0.18, z: 0.06, duration: 1.15 }, 2.2)
-    .to(marker.position, { x: 2.1, y: 0.2, z: -2.5, duration: 1.15 }, 2.2)
-    .to(marker.scale, { x: 0.62, y: 0.62, z: 0.62, duration: 1.15 }, 2.2)
-    .to(camera.position, { x: -0.8, z: 7.6, duration: 1.15 }, 2.2)
-    .to(marker.rotation, { y: Math.PI * 1.25, x: 0.05, duration: 1.3 }, 3.35)
-    .to(marker.position, { x: 0, y: 0.4, z: -3.4, duration: 1.3 }, 3.35)
-    .to(marker.scale, { x: 0.95, y: 0.95, z: 0.95, duration: 1.3 }, 3.35)
-    .to(camera.position, { x: 0, y: 0.35, z: 8.4, duration: 1.3 }, 3.35);
-
-  gsap.utils.toArray('.section-copy, .stat-card, .gear-list, .packages-heading, .package-grid article, .final > *').forEach((element) => {
-    gsap.fromTo(element, { autoAlpha: 0, y: 70 }, {
-      autoAlpha: 1,
-      y: 0,
-      duration: 1,
-      ease: 'power3.out',
-      scrollTrigger: { trigger: element, start: 'top 84%', once: true }
-    });
-  });
-}
-
-const clock = new THREE.Clock();
-function render() {
-  const elapsed = clock.getElapsedTime();
-  if (!prefersReducedMotion) {
-    marker.position.y += Math.sin(elapsed * 0.8) * 0.0008;
-    paintGroup.children.forEach((ball, index) => {
-      ball.position.y = ball.userData.base.y + Math.sin(elapsed * ball.userData.speed + index) * 0.18;
-      ball.rotation.y += 0.01;
-    });
-    bunkers.rotation.y = Math.sin(elapsed * 0.08) * 0.025;
-  }
-  camera.lookAt(0, 0, -1.2);
-  renderer.render(scene, camera);
-  requestAnimationFrame(render);
-}
-render();
-
-window.addEventListener('resize', () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.7));
-});
+addEventListener('scroll',()=>{const max=document.documentElement.scrollHeight-innerHeight;document.querySelector('.scroll-meter i').style.height=(scrollY/max*100)+'%'},{passive:true});
+const clock=new THREE.Clock();function draw(){const t=clock.getElapsedTime();marker.position.y+=Math.sin(t*.8)*.00065;balls.children.forEach((b,i)=>{b.position.y=b.userData.y+Math.sin(t*b.userData.s+i)*.16});camera.lookAt(0,0,-1);renderer.render(scene,camera);requestAnimationFrame(draw)}draw();
+addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,1.6))});
+addEventListener('load',()=>setTimeout(()=>document.querySelector('.loader').classList.add('done'),900));
