@@ -1,119 +1,48 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Paintball Zone brings a cinematic, fully equipped paintball battle to your group in Haiti." />
-  <title>Paintball Zone — We Bring the Battle</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
-</head>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090000">
+<meta name="description" content="Paintball Zone brings the battle to your location in Haiti.">
+<title>Paintball Zone — We Bring the Battle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css"></head>
 <body>
-  <div class="loader" aria-live="polite">
-    <div class="loader-mark">PZ</div>
-    <div class="loader-line"><span></span></div>
-    <p>Preparing your mission</p>
-  </div>
-  <div class="noise" aria-hidden="true"></div>
-  <div class="crosshair" aria-hidden="true"><i></i><i></i></div>
-  <canvas id="webgl" aria-hidden="true"></canvas>
-
-  <div class="progress-rail" aria-hidden="true">
-    <span class="progress-label">Mission progress</span>
-    <div class="progress-track"><i></i></div>
-    <span class="progress-count">00</span>
-  </div>
-
-  <header class="nav">
-    <a class="brand" href="#top" aria-label="Paintball Zone home">
-      <span class="brand-mark">PZ</span>
-      <span class="brand-copy">Paintball<br>Zone</span>
-    </a>
-    <nav aria-label="Primary navigation">
-      <a href="#experience">Experience</a>
-      <a href="#gear">Gear</a>
-      <a href="#packages">Packages</a>
-      <a href="#policy">How it works</a>
-    </nav>
-    <a class="nav-cta" href="#book">Book a battle</a>
-  </header>
-
-  <main id="top">
-    <section class="panel hero" data-scene="hero">
-      <div class="scene-tag">Mission 00 / Arrival</div>
-      <div class="eyebrow">Paintball delivered • Haiti</div>
-      <h1><span>We bring the</span><strong>battle.</strong></h1>
-      <p>Your place becomes the arena. We deliver the equipment, prepare the players, supervise the action, and collect everything afterward.</p>
-      <div class="hero-actions">
-        <a class="button button-primary" href="#book">Book your battle</a>
-        <a class="button button-ghost" href="#experience">See the experience</a>
-      </div>
-      <div class="hero-meta">
-        <span>Equipment delivered</span><span>Safety supervision</span><span>Group-ready</span>
-      </div>
-      <div class="scroll-hint"><span></span>Scroll to enter</div>
-    </section>
-
-    <section id="experience" class="panel split" data-scene="arena">
-      <div class="scene-tag">Mission 01 / Your location</div>
-      <div class="section-copy">
-        <div class="index">01</div><p class="kicker">The experience</p>
-        <h2>Your space. Our battlefield.</h2>
-        <p>Choose an appropriate private location. Our team brings the game to you and organizes a fast, controlled experience for your squad.</p>
-      </div>
-      <div class="stat-card"><span>Built for</span><strong>Friends. Birthdays. Teams.</strong></div>
-    </section>
-
-    <section id="gear" class="panel split reverse" data-scene="gear">
-      <div class="scene-tag">Mission 02 / Loadout</div>
-      <div class="section-copy">
-        <div class="index">02</div><p class="kicker">Rental gear</p>
-        <h2>Arrive ready. We handle the gear.</h2>
-        <p>Every player receives a marker, protective mask, air tank, hopper, and the paintballs included with their selected package.</p>
-      </div>
-      <div class="gear-list" aria-label="Included gear">
-        <span><b>01</b>Marker</span><span><b>02</b>Mask</span><span><b>03</b>Air tank</span><span><b>04</b>Hopper</span><span><b>05</b>Paintballs</span>
-      </div>
-    </section>
-
-    <section id="packages" class="panel packages" data-scene="packages">
-      <div class="scene-tag">Mission 03 / Select package</div>
-      <div class="packages-heading">
-        <div><div class="index">03</div><p class="kicker">Choose your battle</p><h2>Pick your firepower.</h2></div>
-        <p>Simple per-player pricing. Delivery cost is calculated separately based on your location, and a minimum group booking applies.</p>
-      </div>
-      <div class="package-grid">
-        <article><span>Starter • 200 paintballs</span><h3>$25</h3><p>A fast introduction for new players and shorter battles.</p><a href="#book">Choose starter</a></article>
-        <article class="featured"><span>Most popular • 500 paintballs</span><h3>$40</h3><p>More playing time for birthdays, friends, and competitive squads.</p><a href="#book">Choose squad</a></article>
-        <article><span>Maximum • 1,000 paintballs</span><h3>$60</h3><p>The full-intensity option for players who want the longest battle.</p><a href="#book">Choose maximum</a></article>
-      </div>
-    </section>
-
-    <section id="policy" class="panel split" data-scene="policy">
-      <div class="scene-tag">Mission 04 / Deployment</div>
-      <div class="section-copy">
-        <div class="index">04</div><p class="kicker">How it works</p>
-        <h2>Book. Prepare. Battle.</h2>
-        <p>Tell us your group size, preferred date, and location. We confirm site suitability, calculate delivery, prepare the equipment, and send supervisors to run the session safely.</p>
-      </div>
-      <div class="gear-list" aria-label="Booking steps">
-        <span><b>01</b>Select package</span><span><b>02</b>Confirm group</span><span><b>03</b>Approve location</span><span><b>04</b>Battle day</span>
-      </div>
-    </section>
-
-    <section id="book" class="panel final" data-scene="final">
-      <div class="scene-tag">Mission 05 / Book</div>
-      <p class="kicker">Your move</p><h2>Ready for battle?</h2>
-      <p>Send your email and we’ll contact you to confirm the group, location, delivery cost, and available date.</p>
-      <form class="waitlist" onsubmit="event.preventDefault(); this.classList.add('submitted');">
-        <label><span class="sr-only">Email address</span><input required type="email" placeholder="Email address" autocomplete="email" /></label>
-        <button type="submit">Request booking</button><small>Request received. We’ll contact you by email.</small>
-      </form>
-      <footer>Paintball Zone — We bring the battle to you</footer>
-    </section>
-  </main>
-  <script type="module" src="app.js"></script>
-</body>
-</html>
+<div class="loader"><b>PZ</b><span></span><small>LOADING THE BATTLE</small></div>
+<header><a class="logo" href="#start">PAINTBALL<br>ZONE</a><nav><a href="#how">HOW IT WORKS</a><a href="#packages">PACKAGES</a></nav><a class="book" href="#booking">BOOK NOW</a></header>
+<div class="scroll-meter"><i></i><span>SCROLL</span></div>
+<canvas id="webgl" aria-hidden="true"></canvas>
+<main>
+<section id="start" class="scene scene-red" data-scene="0">
+  <div class="micro">PAINTBALL DELIVERED • HAITI</div>
+  <div class="giant back">BRING</div><div class="giant front">THE BATTLE</div>
+  <div class="copy"><h1>Your place.<br>Our battlefield.</h1><p>We deliver the gear, prepare every player, supervise the action, and collect everything afterward.</p><a href="#packages">ENTER THE GAME ↓</a></div>
+  <div class="scene-count">01 / 05</div>
+</section>
+<section id="how" class="scene scene-gold" data-scene="1">
+  <div class="micro dark">FULL-SERVICE MOBILE PAINTBALL</div>
+  <div class="giant back dark">READY</div><div class="giant front dark">AIM. PLAY.</div>
+  <div class="copy dark-copy"><h2>We handle<br>the loadout.</h2><p>Marker. Mask. Air tank. Hopper. Paintballs. Plus supervisors to keep your session moving safely.</p></div>
+  <div class="scene-count dark">02 / 05</div>
+</section>
+<section class="scene scene-orange" data-scene="2">
+  <div class="micro">FRIENDS • BIRTHDAYS • TEAMS</div>
+  <div class="giant back">NO FIELD?</div><div class="giant front">NO PROBLEM.</div>
+  <div class="copy"><h2>Choose the place.<br>We bring the action.</h2><p>Send the location with your request. We confirm that the playing area works and calculate delivery before final approval.</p></div>
+  <div class="scene-count">03 / 05</div>
+</section>
+<section id="packages" class="scene packages-scene" data-scene="3">
+ <div class="package-head"><span>SELECT YOUR FIREPOWER</span><h2>THREE WAYS<br>TO PLAY.</h2></div>
+ <div class="cards">
+  <article><small>STARTER</small><strong>$25</strong><b>200 PAINTBALLS</b><p>Fast introduction for new players.</p><a href="#booking">SELECT</a></article>
+  <article class="hot"><small>MOST POPULAR</small><strong>$40</strong><b>500 PAINTBALLS</b><p>More time for competitive squads.</p><a href="#booking">SELECT</a></article>
+  <article><small>MAXIMUM</small><strong>$60</strong><b>1,000 PAINTBALLS</b><p>Full-intensity extended battle.</p><a href="#booking">SELECT</a></article>
+ </div><p class="notice">Per-player pricing. Delivery is calculated separately. Minimum group booking applies.</p>
+</section>
+<section id="booking" class="scene final-scene" data-scene="4">
+ <div class="giant back">YOUR MOVE</div>
+ <div class="final-copy"><span>MISSION 05 / DEPLOY</span><h2>READY<br>FOR BATTLE?</h2><p>Tell us your email. We’ll confirm the group, location, delivery cost, and available date.</p>
+ <form onsubmit="event.preventDefault();this.classList.add('sent')"><input type="email" required placeholder="YOUR EMAIL ADDRESS"><button>REQUEST BOOKING</button><small>REQUEST RECEIVED — WE’LL CONTACT YOU BY EMAIL.</small></form></div>
+ <footer>PAINTBALL ZONE © 2026 <span>WE BRING THE BATTLE TO YOU</span></footer>
+</section>
+</main><script type="module" src="app.js"></script></body></html>
