@@ -14,25 +14,25 @@ renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.1;
 
 const scene = new THREE.Scene();
-scene.fog = new THREE.FogExp2(0x070807, 0.055);
+scene.fog = new THREE.FogExp2(0x120304, 0.055);
 const camera = new THREE.PerspectiveCamera(42, window.innerWidth / window.innerHeight, 0.1, 100);
 camera.position.set(0, 0.35, 9);
 
 scene.add(new THREE.HemisphereLight(0xcfe6ff, 0x160f0a, 1.35));
-const keyLight = new THREE.DirectionalLight(0xd7ff2f, 5);
+const keyLight = new THREE.DirectionalLight(0xffd400, 5);
 keyLight.position.set(4, 5, 6);
 scene.add(keyLight);
-const rimLight = new THREE.PointLight(0xff6433, 40, 15);
+const rimLight = new THREE.PointLight(0xff321f, 40, 15);
 rimLight.position.set(-4, 1, 4);
 scene.add(rimLight);
 
 const root = new THREE.Group();
 scene.add(root);
 
-const darkMaterial = new THREE.MeshStandardMaterial({ color: 0x151915, roughness: 0.4, metalness: 0.75 });
-const gripMaterial = new THREE.MeshStandardMaterial({ color: 0x252a24, roughness: 0.78, metalness: 0.2 });
-const acidMaterial = new THREE.MeshStandardMaterial({ color: 0xd7ff2f, roughness: 0.2, metalness: 0.4, emissive: 0x1c2400, emissiveIntensity: 0.9 });
-const glassMaterial = new THREE.MeshPhysicalMaterial({ color: 0x7d94a0, roughness: 0.1, metalness: 0.15, transmission: 0.35, transparent: true, opacity: 0.7 });
+const darkMaterial = new THREE.MeshStandardMaterial({ color: 0x21100e, roughness: 0.4, metalness: 0.75 });
+const gripMaterial = new THREE.MeshStandardMaterial({ color: 0x2a1714, roughness: 0.78, metalness: 0.2 });
+const acidMaterial = new THREE.MeshStandardMaterial({ color: 0xffd400, roughness: 0.2, metalness: 0.4, emissive: 0x3a1600, emissiveIntensity: 0.9 });
+const glassMaterial = new THREE.MeshPhysicalMaterial({ color: 0xff9a74, roughness: 0.1, metalness: 0.15, transmission: 0.35, transparent: true, opacity: 0.7 });
 
 // Lightweight stylized paintball marker, assembled from procedural geometry.
 const marker = new THREE.Group();
@@ -87,7 +87,7 @@ marker.scale.setScalar(0.78);
 
 const floor = new THREE.Mesh(
   new THREE.CircleGeometry(14, 64),
-  new THREE.MeshStandardMaterial({ color: 0x0b0d0b, roughness: 1, metalness: 0, transparent: true, opacity: 0.75 })
+  new THREE.MeshStandardMaterial({ color: 0x140506, roughness: 1, metalness: 0, transparent: true, opacity: 0.75 })
 );
 floor.rotation.x = -Math.PI / 2;
 floor.position.y = -3.1;
@@ -95,7 +95,7 @@ scene.add(floor);
 
 const paintGroup = new THREE.Group();
 scene.add(paintGroup);
-const paintColors = [0xd7ff2f, 0xff6433, 0x22b6ff, 0xff2fa0];
+const paintColors = [0xffd400, 0xff321f, 0xff7a00, 0xfff1b8];
 for (let i = 0; i < 70; i += 1) {
   const material = new THREE.MeshStandardMaterial({
     color: paintColors[i % paintColors.length],
@@ -114,7 +114,7 @@ const bunkers = new THREE.Group();
 scene.add(bunkers);
 for (let i = 0; i < 8; i += 1) {
   const geometry = i % 2 ? new THREE.CylinderGeometry(0.5, 0.7, 2.1, 14) : new THREE.BoxGeometry(1.25, 1.9, 1.25);
-  const mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial({ color: i % 2 ? 0x292f27 : 0x381814, roughness: 0.9 }));
+  const mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial({ color: i % 2 ? 0x2b100d : 0x4a0b08, roughness: 0.9 }));
   mesh.position.set((i - 3.5) * 2.2, -2.05, -7 - (i % 3) * 2.4);
   mesh.rotation.y = i * 0.7;
   bunkers.add(mesh);
