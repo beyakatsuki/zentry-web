@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090000">
+<meta name="description" content="Paintball Zone brings the battle to your location in Haiti.">
+<title>Paintball Zone — We Bring the Battle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css"></head>
+<body>
+<div class="loader"><b>PZ</b><span></span><small>LOADING THE BATTLE</small></div>
+<header><a class="logo" href="#start">PAINTBALL<br>ZONE</a><nav><a href="#how">HOW IT WORKS</a><a href="#packages">PACKAGES</a></nav><a class="book" href="#booking">BOOK NOW</a></header>
+<div class="scroll-meter"><i></i><span>SCROLL</span></div>
+<canvas id="webgl" aria-hidden="true"></canvas>
+<main>
+<section id="start" class="scene scene-red" data-scene="0">
+  <div class="micro">PAINTBALL DELIVERED • HAITI</div>
+  <div class="giant back">BRING</div><div class="giant front">THE BATTLE</div>
+  <div class="copy"><h1>Your place.<br>Our battlefield.</h1><p>We deliver the gear, prepare every player, supervise the action, and collect everything afterward.</p><a href="#packages">ENTER THE GAME ↓</a></div>
+  <div class="scene-count">01 / 05</div>
+</section>
+<section id="how" class="scene scene-gold" data-scene="1">
+  <div class="micro dark">FULL-SERVICE MOBILE PAINTBALL</div>
+  <div class="giant back dark">READY</div><div class="giant front dark">AIM. PLAY.</div>
+  <div class="copy dark-copy"><h2>We handle<br>the loadout.</h2><p>Marker. Mask. Air tank. Hopper. Paintballs. Plus supervisors to keep your session moving safely.</p></div>
+  <div class="scene-count dark">02 / 05</div>
+</section>
+<section class="scene scene-orange" data-scene="2">
+  <div class="micro">FRIENDS • BIRTHDAYS • TEAMS</div>
+  <div class="giant back">NO FIELD?</div><div class="giant front">NO PROBLEM.</div>
+  <div class="copy"><h2>Choose the place.<br>We bring the action.</h2><p>Send the location with your request. We confirm that the playing area works and calculate delivery before final approval.</p></div>
+  <div class="scene-count">03 / 05</div>
+</section>
+<section id="packages" class="scene packages-scene" data-scene="3">
+ <div class="package-head"><span>SELECT YOUR FIREPOWER</span><h2>THREE WAYS<br>TO PLAY.</h2></div>
+ <div class="cards">
+  <article><small>STARTER</small><strong>$25</strong><b>200 PAINTBALLS</b><p>Fast introduction for new players.</p><a href="#booking">SELECT</a></article>
+  <article class="hot"><small>MOST POPULAR</small><strong>$40</strong><b>500 PAINTBALLS</b><p>More time for competitive squads.</p><a href="#booking">SELECT</a></article>
+  <article><small>MAXIMUM</small><strong>$60</strong><b>1,000 PAINTBALLS</b><p>Full-intensity extended battle.</p><a href="#booking">SELECT</a></article>
+ </div><p class="notice">Per-player pricing. Delivery is calculated separately. Minimum group booking applies.</p>
+</section>
+<section id="booking" class="scene final-scene" data-scene="4">
+ <div class="giant back">YOUR MOVE</div>
+ <div class="final-copy"><span>MISSION 05 / DEPLOY</span><h2>READY<br>FOR BATTLE?</h2><p>Tell us your email. We’ll confirm the group, location, delivery cost, and available date.</p>
+ <form onsubmit="event.preventDefault();this.classList.add('sent')"><input type="email" required placeholder="YOUR EMAIL ADDRESS"><button>REQUEST BOOKING</button><small>REQUEST RECEIVED — WE’LL CONTACT YOU BY EMAIL.</small></form></div>
+ <footer>PAINTBALL ZONE © 2026 <span>WE BRING THE BATTLE TO YOU</span></footer>
+</section>
+</main><script type="module" src="app.js"></script></body></html>
